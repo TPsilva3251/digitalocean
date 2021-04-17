@@ -9,17 +9,18 @@ class ArquivoController extends Controller
 {
     public function store(Request $request)
     {
+
         $extension = $request->file('upload_file')->extension();
         $minetype = $request->file('upload_file')->getMimeType();
-        $pach = Storage::disk('do_spaces')->post('uploads', $request->file('upload_file'),time().'.'.$extension);
+        $pach = Storage::disk('do_spaces')->putFileAs('uploads', $request->file('upload_file'),time().'.'.$extension,'public');
 
-        // dd($extension, $minetype, $pach);
+
         return back()->with('success_mensage', 'Upload successful');
     }
 
     public function show()
     {
-        $file = Storage::disk('do_spaces')->get('uploads/2.jpg');
+        $file = Storage::disk('do_spaces')->get('uploads/1618622391.jpg');
         $headers = [
             'Content-Type' => 'image/jpg'
         ];
